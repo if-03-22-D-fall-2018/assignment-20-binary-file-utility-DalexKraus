@@ -1,7 +1,6 @@
-//
-// Created by David on 05.06.2019.
-//
 #include <stdio.h>
+#include <stdlib.h>
+#include "generic.h"
 
 void get_input(char text[], const char* prompt)
 {
@@ -11,18 +10,32 @@ void get_input(char text[], const char* prompt)
 
 int main(int argc, const char* argv[])
 {
-    printf("lol");
+    char firstName[STRLEN];
+    char lastName[STRLEN];
+    char rawAge[STRLEN];
 
-    char firstName[15];
-    char lastName[15];
-    char age[15];
+    get_input(firstName, "First Name: ");
+    get_input(lastName, "Second Name: ");
+    get_input(rawAge, "Age: ");
+    int age = atoi(rawAge);
 
-    get_input();
-    get_input();
-    get_input();
+    FILE* fd = fopen("student.dat", "r+");
 
-    printf("F: %s, L:", firstName);
+    //Read last ID
+    int lastId;
+    fseek(fd, -sizeof(int), SEEK_END);
+    fread(&lastId, sizeof(int), 1, fd);
 
+    //Write new Entry
+    fwrite(firstName, sizeof(char), sizeof(firstName), fd);
+    fwrite(lastName, sizeof(char), sizeof(lastName), fd);
+    fwrite(&age, sizeof(int), 1, fd);
+
+    //Append new ID
+    lastId++;
+    fwrite(&lastId, sizeof(int), 1, fd);
+
+    fclose(fd);
     return 0;
 }
 
