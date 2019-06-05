@@ -10,7 +10,10 @@ int main(int argc, const char* argv[])
 
     if (argc == 1)
         return -1;
+
     int id = atoi(argv[1]) - 1;
+    if (id <= -1)
+        return -1;
 
     size_t student_size = sizeof(firstName) + sizeof(lastName) + sizeof(int) * 2;
 
