@@ -8,7 +8,7 @@ int main(int argc, const char* argv[])
     int age;
 
     FILE* fd=fopen("student.dat", "r");
-    printf("%10s %-20s %-20s %-5s\n", "Id", "First Name", "Last Name", "Age");
+    printf("%-10s %-20s %-20s %-5s\n", "Id", "First Name", "Last Name", "Age");
 
     int id;
     fseek(fd, 0, SEEK_SET);
